@@ -11,7 +11,12 @@ function getEmployees({
         callback(data)
       }
     })
-    .catch((error) => console.log(error))
+    .catch((error) => {
+      console.log('Error: ', error)
+      if (typeof callback === 'function') {
+        callback(undefined)
+      }
+    })
 }
 const CallApi = {
   getEmployees
