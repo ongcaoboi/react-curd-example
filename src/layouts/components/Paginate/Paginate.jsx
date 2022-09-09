@@ -1,97 +1,111 @@
 import React from 'react'
 import './Paginate'
 
-function Paginate({
-  totalPage = 1,
-  currentPage = 1,
-  callback
-}) {
+function Paginate({ totalPage = 1, currentPage = 1, callback }) {
+  const pageActive = 'bg-blue-400'
+  const pageDefault = 'bg-gray-400'
+  const defaultNumPageClass = ' cursor-pointer rounded-full w-6 h-6 flex items-center justify-center m-2'
+  const numPaging = 3
+
   const handlerClick = (page) => {
     if (typeof callback === 'function') {
       callback(page)
     }
   }
+
   return (
-    <div class="flex">
+    <div className="flex">
       {(() => {
-        let pageActive = 'bg-blue-400'
-        let pageDefault = 'bg-gray-400'
-        let numPaging = 3
         let array = []
-        if (currentPage !== 1 && totalPage > 1) {
+        if (currentPage > 1) {
           array.push(
             <div
-              className="w-6 h-6 flex items-center justify-center m-2"
+              key={currentPage + '-'}
+              className="cursor-pointer w-6 h-6 flex items-center justify-center m-2"
+              onClick={() => handlerClick(currentPage - 1)}
             >
-              <p>
-                &lt;&lt;
-              </p>
+              <p>&lt;&lt;</p>
             </div>
           )
         }
-        if (currentPage > numPaging) {
-          array.push(
-            <div
-              className={`${totalPage === currentPage ? pageActive : pageDefault} rounded-full w-6 h-6 flex items-center justify-center m-2`}
-            >
-              <p className="text-white" key={1}>{1}</p>
-            </div>
-          )
-          array.push(
-            <div className="w-6 h-6 flex items-center justify-center m-2">
-              <p>
-                ...
-              </p>
-            </div>
-          )
-        }
-        let index = currentPage
-        if (currentPage > numPaging) {
-          index = currentPage - numPaging
-        }
-        for (index; index < totalPage; index++) {
-          if (index >= currentPage + numPaging) {
-            break
+        if (totalPage <= (numPaging * 2 + 1)) {
+          for (let index = 1; index <= totalPage; index++) {
+            array.push(
+              <div
+                key={index}
+                className={`${index === currentPage ? pageActive : pageDefault} ${defaultNumPageClass}`}
+                onClick={() => handlerClick(index)}
+              >
+                <p className="text-white">{index}</p>
+              </div>
+            )
           }
-          let index_ = index
+        } else {
+          let start = 1
+          let end = (numPaging * 2 + 1)
+          if (currentPage > numPaging) {
+            start = currentPage - numPaging
+            end = currentPage + numPaging
+          }
+          if ((currentPage + numPaging) > totalPage) {
+            start = totalPage - numPaging * 2
+            end = totalPage
+          }
           array.push(
             <div
-              className={`${index === currentPage ? pageActive : pageDefault} rounded-full w-6 h-6 flex items-center justify-center m-2`}
-              onClick={() => handlerClick(index_)}
+              key={1}
+              className={`${1 === currentPage ? pageActive : pageDefault} ${defaultNumPageClass}`}
+              onClick={() => handlerClick(1)}
             >
-              <p className="text-white" key={index}>{index}</p>
+              <p className="text-white">{1}</p>
             </div>
           )
-        }
-        if (totalPage > numPaging) {
+          if ((currentPage - numPaging) > 2) {
+            array.push(
+              <div key="blank_<<" className="w-6 h-6 flex items-center justify-center m-2">
+                <p>...</p>
+              </div>
+            )
+          }
+          for (let index = start; index <= end; index++) {
+            if (index === totalPage || index === 1) {
+              continue
+            }
+            array.push(
+              <div
+                key={index}
+                className={`${index === currentPage ? pageActive : pageDefault} ${defaultNumPageClass}`}
+                onClick={() => handlerClick(index)}
+              >
+                <p className="text-white">{index}</p>
+              </div>
+            )
+          }
+          if ((currentPage + numPaging) < (totalPage - 1)) {
+            array.push(
+              <div key="blank_>" className="w-6 h-6 flex items-center justify-center m-2">
+                <p>...</p>
+              </div>
+            )
+          }
           array.push(
             <div
-              className="w-6 h-6 flex items-center justify-center m-2">
-              <p>
-                ...
-              </p>
-            </div>
-          )
-        }
-        if (totalPage > index) {
-          array.push(
-            <div
-              className={`${totalPage === currentPage ? pageActive : pageDefault} rounded-full w-6 h-6 flex items-center justify-center m-2`}
+              key={totalPage}
+              className={`${totalPage === currentPage ? pageActive : pageDefault} ${defaultNumPageClass}`}
               onClick={() => handlerClick(totalPage)}
             >
-              <p className="text-white" key={totalPage}>{totalPage}</p>
+              <p className="text-white">{totalPage}</p>
             </div>
           )
         }
-        if (currentPage !== totalPage && totalPage > 1) {
+        if (currentPage < totalPage) {
           array.push(
             <div
-              className="w-6 h-6 flex items-center justify-center m-2"
-              onClick={() => handlerClick(++currentPage)}
+              key={currentPage + '+'}
+              className="cursor-pointer w-6 h-6 flex items-center justify-center m-2"
+              onClick={() => handlerClick(currentPage + 1)}
             >
-              <p>
-                &gt;&gt;
-              </p>
+              <p>&gt;&gt;</p>
             </div>
           )
         }
