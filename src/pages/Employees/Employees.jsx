@@ -1,7 +1,7 @@
 import React from 'react'
 import CallApi from '../../services'
 import './Employees.scss'
-import Paginate from '../../layouts/components/Paginate'
+import Paginate from '../components/Paginate'
 
 const defaultPageInfo = {
   totalPage: 0,
@@ -9,7 +9,7 @@ const defaultPageInfo = {
   currentPage: 0
 }
 function Employees() {
-  const pageSize = 15
+  const pageSize = 10
   const [searchName, setSeachName] = React.useState('')
   const [pageInfo, setPageInfo] = React.useState(defaultPageInfo)
   const [employees, setEmployees] = React.useState([])
