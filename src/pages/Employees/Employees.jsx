@@ -1,7 +1,7 @@
 import React from 'react'
 import CallApi from '../../services'
 import './Employees.scss'
-import Paginate from '../components/Paginate'
+import Paginate from '../../components/Paginate'
 
 const defaultPageInfo = {
   totalPage: 0,
@@ -13,12 +13,17 @@ function Employees() {
   const [searchName, setSeachName] = React.useState('')
   const [pageInfo, setPageInfo] = React.useState(defaultPageInfo)
   const [employees, setEmployees] = React.useState([])
+  const isCallApi = React.useRef(false)
 
   React.useEffect(() => {
     getData()
   }, [])
 
   const getData = (pageNumber = 1, searchName) => {
+    if (isCallApi.current) {
+      return
+    }
+    isCallApi.current = true
     CallApi.getEmployees({ pageSize: pageSize, pageNumber: pageNumber, employeeFilter: searchName }, (data) => {
       if (data) {
         setEmployees(data.Data)
@@ -31,6 +36,7 @@ function Employees() {
         setEmployees([])
         setPageInfo(defaultPageInfo)
       }
+      isCallApi.current = false
     })
   }
 

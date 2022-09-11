@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import config from '../../config'
+import { ToggleButton } from '../../components/Buttons'
 
 function Header() {
   return (
@@ -12,8 +13,10 @@ function Header() {
         <Link className="mr-5 font-bold" to={config.routes.employees}>
           Employees
         </Link>
+        <Link to='./hihi'>Test</Link>
       </div>
       <div className="flex items-center justify-end">
+        <ToggleButton />
       </div>
     </div>
   )

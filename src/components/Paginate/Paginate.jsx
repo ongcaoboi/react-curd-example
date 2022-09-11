@@ -4,7 +4,7 @@ import './Paginate'
 function Paginate({ totalPage = 1, currentPage = 1, callback }) {
   const pageActive = 'bg-blue-400'
   const pageDefault = 'bg-gray-400'
-  const defaultNumPageClass = ' cursor-pointer rounded-full w-6 h-6 flex items-center justify-center m-2'
+  const defaultNumPageClass = ' cursor-pointer select-none rounded-full w-6 h-6 flex items-center justify-center m-2'
   const numPaging = 3
 
   const handlerClick = (page) => {
@@ -21,7 +21,7 @@ function Paginate({ totalPage = 1, currentPage = 1, callback }) {
           array.push(
             <div
               key={currentPage + '-'}
-              className="cursor-pointer w-6 h-6 flex items-center justify-center m-2"
+              className="cursor-pointer select-none w-6 h-6 flex items-center justify-center m-2"
               onClick={() => handlerClick(currentPage - 1)}
             >
               <p>&lt;&lt;</p>
@@ -62,7 +62,7 @@ function Paginate({ totalPage = 1, currentPage = 1, callback }) {
           )
           if ((currentPage - numPaging) > 2) {
             array.push(
-              <div key="blank_<<" className="w-6 h-6 flex items-center justify-center m-2">
+              <div key="blank_<<" className="w-6 h-6 select-none flex items-center justify-center m-2">
                 <p>...</p>
               </div>
             )
@@ -83,7 +83,7 @@ function Paginate({ totalPage = 1, currentPage = 1, callback }) {
           }
           if ((currentPage + numPaging) < (totalPage - 1)) {
             array.push(
-              <div key="blank_>" className="w-6 h-6 flex items-center justify-center m-2">
+              <div key="blank_>" className="w-6 h-6 flex select-none items-center justify-center m-2">
                 <p>...</p>
               </div>
             )
@@ -102,7 +102,7 @@ function Paginate({ totalPage = 1, currentPage = 1, callback }) {
           array.push(
             <div
               key={currentPage + '+'}
-              className="cursor-pointer w-6 h-6 flex items-center justify-center m-2"
+              className="cursor-pointer w-6 h-6 flex select-none items-center justify-center m-2"
               onClick={() => handlerClick(currentPage + 1)}
             >
               <p>&gt;&gt;</p>

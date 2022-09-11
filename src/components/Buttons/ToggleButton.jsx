@@ -1,27 +1,21 @@
-import { useCallback } from "react"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 function ToggleButton(props) {
-  const [isCheck, setIsCheck] = useState(false)
-
-  const handlerClick = useCallback((e) => {
-    console.log(e)
-    if (typeof props.onClick === 'function') {
-      props.onClick(!isCheck)
+  const [active, setActive] = useState(false)
+  const handlerOnChange = useCallback((e) => {
+    setActive(e.target.checked)
+    if (typeof props.onChange == 'function') {
+      props.onChange(e.target.checked)
     }
-    setIsCheck(!isCheck)
-  })
+  }, [props])
   return (
-    <button className="rounded-full bg-white relative z-10 border flex items-center border-gray-200 h-6 w-14"
-      onClick={handlerClick}>
-      <span className={`transform duration-300 inline-block z-10 bg-gray-500 h-6 w-6 rounded-full border border-gray-400 ${isCheck ? 'ml-8' : 'ml-0.5'}`}></span>
-      <div className={`absolute ${isCheck ? 'w-14 opacity-1' : 'w-6 opacity-0'} transform duration-300 bg-gray-700 rounded-full h-6 left-0 z-0 inline-block`}>
-
-      </div>
-      <div className={`absolute ${isCheck ? 'w-6 opacity-0' : 'w-14 opacity-1'} transform duration-300 bg-gray-200 rounded-full h-6 right-0 z-0 inline-block`}>
-
-      </div>
-    </button>
+    <label htmlFor={`toggle-button-${props.keyId}`}
+      className="flex items-center bg-gray-300 relative w-7 h-4 rounded-full cursor-pointer select-none shadow-inner shadow-gray-400/50">
+      <div className={`w-3 h-3 rounded-full absolute inline-block bg-white z-10 transition-all duration-300 drop-shadow-lg ${active ? 'left-3.5' : 'left-0.5'}`}></div>
+      <div className={`absolute left-0 h-4 inline-block bg-gray-700 rounded-full z-0 transition-all duration-300 shadow-inner shadow-gray-100/20 ${active ? 'w-7' : 'w-4 bg-transparent'}`}></div>
+      <input id={`toggle-button-${props.keyId}`} type="checkbox" onChange={handlerOnChange} hidden />
+    </label>
   )
 }
+
 export default ToggleButton
