@@ -3,6 +3,7 @@ import CallApi from '../../services'
 import './Employees.scss'
 import Paginate from '../../components/Paginate'
 import { Link } from 'react-router-dom'
+import config from '../../config'
 
 const defaultPageInfo = {
   totalPage: 0,
@@ -60,7 +61,7 @@ function Employees() {
           <h1>Employees page</h1>
           <Link
             className="px-2 bg-green-500 rounded text-white ml-2 hover:opacity-60"
-            to='edit/null'>
+            to={config.routes.editEmployees}>
             New
           </Link>
         </div>
@@ -122,7 +123,7 @@ function Employees() {
                     <div className="flex">
                       <Link
                         className="mr-3 rounded bg-blue-400 text-white py-1 px-5 hover:opacity-60"
-                        to={`/employees/edit/${employ.EmployeeId}`} >
+                        to={`/employees/edit?employId=${employ.EmployeeId}`} >
                         Edit
                       </Link>
                       <button

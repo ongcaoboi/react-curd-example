@@ -1,7 +1,7 @@
 const routes = {
   home: '/',
   employees: '/employees',
-  edit: '/employees/edit/:employeeId',
+  editEmployees: '/employees/edit',
   notFound: '*'
 }
 

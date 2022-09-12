@@ -1,16 +1,20 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import './Edit.scss'
 import CallApi from '../../services'
 import { useNavigate } from 'react-router-dom'
 import config from '../../config'
+import { useLocation } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 
 function Edit() {
-  let isNew = false
-  const { employeeId } = useParams()
-  if (employeeId === 'null') {
-    isNew = true
+  let isNew = true
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+  // const { employeeId } = useParams()
+  const employeeId = query.get("employId")
+  if (employeeId) {
+    isNew = false
   }
   const [employ, setEmploy] = useState({})
   const navigate = useNavigate()

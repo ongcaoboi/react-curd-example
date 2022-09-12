@@ -7,7 +7,7 @@ import config from './config'
 const publicRoutes = [
   { path: config.routes.home, component: Home },
   { path: config.routes.employees, component: Employees },
-  { path: config.routes.edit, component: Edit },
+  { path: config.routes.editEmployees, component: Edit },
   { path: config.routes.notFound, component: NotFound, layout: null },
 ]
 
