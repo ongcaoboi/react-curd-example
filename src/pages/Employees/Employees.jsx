@@ -20,7 +20,6 @@ function Employees() {
   const isCallApi = React.useRef(false)
   const [isOpenConfirm, setIsOpenConfirm] = React.useState(false)
   const [messageConfirm, setMessageConfirm] = React.useState('')
-  const [titleConfirm, setTitleConfrim] = React.useState('')
   const [callBackConfirm, setCallBackConfirm] = React.useState()
 
   React.useEffect(() => {
@@ -51,25 +50,18 @@ function Employees() {
   const handlerDelete = (id) => {
 
     const callback = (status, id_ = id) => {
-      console.log(id_)
-      console.log(status)
-      setEmployees(prev => {
-        const fetchApi = async () => {
-          await CallApi.deleteEmploy(id_)
-        }
-        if (status) {
-          fetchApi()
-          return prev.filter(item => item.EmployeeId !== id)
-        } else {
-          return prev
-        }
-      })
+      const fetchApi = async () => {
+        await CallApi.deleteEmploy(id_)
+      }
+      if (status) {
+        fetchApi()
+        setEmployees(prev => prev.filter(item => item.EmployeeId !== id))
+      }
       setIsOpenConfirm(false)
     }
 
     setCallBackConfirm(() => callback)
     setMessageConfirm('You want to delele this record: ' + id)
-    setTitleConfrim("Confirm")
     setIsOpenConfirm(true)
   }
 
@@ -169,7 +161,6 @@ function Employees() {
       <Modals.Confirm
         isOpen={isOpenConfirm}
         message={messageConfirm}
-        title={titleConfirm}
         handler={callBackConfirm} />
     </div>
   )

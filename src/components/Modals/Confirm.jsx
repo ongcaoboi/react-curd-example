@@ -7,10 +7,9 @@ function Confirm({
   isOpen = true
 }) {
   const handlerClick = (status) => {
-    console.log(handler)
-    // if (typeof handler === 'function') {
-    // }
-    handler(status)
+    if (typeof handler === 'function') {
+      handler(status)
+    }
   }
 
   if (isOpen) {
@@ -24,9 +23,9 @@ function Confirm({
               <p className="text-white px-2 py-1">{title}</p>
               <button
                 className="w-6 h-6 rounded font-bold mr-1 text-white bg-red-400 hover:opacity-60"
-                onClick={handlerClick(false)}>x</button>
+                onClick={() => handlerClick(false)}>x</button>
             </div>
-            <div className="w-full h-32 flex items-center justify-center">
+            <div className="px-5 w-full h-32 flex items-center justify-center">
               {message}
             </div>
             <div className="w-full h-14 text-center">
