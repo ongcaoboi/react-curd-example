@@ -1,1 +1,7 @@
-export { default as Confirm } from './Confirm' 
+import Confirm from './Confirm'
+
+const Modals = {
+  Confirm
+}
+
+export default Modals 
